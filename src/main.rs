@@ -19,13 +19,16 @@ fn main() {
              .help("Sniff on interface")
              .short("s")
              .long("sniff"))
-        .arg(Arg::with_name("PCAP")
-             .help("Parse pcap file")
-             .short("p")
-             .long("pcap"))
-        .group(ArgGroup::with_name("switch")
-                    .args(&["SNIFF", "PCAP"])
-                    .required(true))
+             .arg(Arg::with_name("PCAP")
+                  .help("Parse pcap file")
+                  .short("p")
+                  .long("pcap"))
+             .group(ArgGroup::with_name("switch")
+                              .args(&["SNIFF", "PCAP"])
+                              .required(true))
+             //.group(ArgGroup::with_name("switch")
+            //        .args(&["json", "text"])
+            //        .required(false))
         .arg(Arg::with_name("INPUT")
              .help("<NETWORK INTERFACE>/<PCAP FILE>")
              .required(true)
@@ -34,7 +37,6 @@ fn main() {
 
     if matches.is_present("SNIFF") {
         let iface_name = matches.value_of("INPUT").unwrap();
-        println!("Started capturing on {}", iface_name);
         interface::process(&iface_name);
     } else if matches.is_present("PCAP") {
         pcap::process(&matches.value_of("INPUT").unwrap());

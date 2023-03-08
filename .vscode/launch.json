@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'sni-sniffer'",
+            "cargo": {
+                "args": [
+                    "build",
+                    "--bin=sni-sniffer",
+                    "--package=sni-sniffer"
+                ],
+                "filter": {
+                    "name": "sni-sniffer",
+                    "kind": "bin"
+                }
+            },
+            "args": [],
+            
+            "sudo": true,
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug unit tests in executable 'sni-sniffer'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bin=sni-sniffer",
+                    "--package=sni-sniffer"
+                ],
+                "filter": {
+                    "name": "sni-sniffer",
+                    "kind": "bin"
+                }
+            },
+            
+            "args": ["--sniff","enx000ec6455d8e"],
+            "sudo": true,
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

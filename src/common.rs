@@ -2,6 +2,7 @@ use std::net::IpAddr;
 use pnet::packet::tcp::TcpPacket;
 use pnet::packet::Packet;
 use crate::tls::{self,TlsParser,STREAM_TOSERVER};
+use serde_json::json;
 
 /// Print SNI if exists
 pub fn parse_tls(src: IpAddr, dst: IpAddr, tcp: &TcpPacket) {
@@ -13,10 +14,20 @@ pub fn parse_tls(src: IpAddr, dst: IpAddr, tcp: &TcpPacket) {
 
         parser.parse(&payload, STREAM_TOSERVER);
         if parser.sni.len() > 0 {
-            println!("TCP {:?}:{} -> {:?}:{}",
-                src, tcp.get_source(),
-                dst, tcp.get_destination());
-            println!("SNI: {:#?}", parser.sni);
+            let print_json= true; // TODO
+            if print_json {
+
+            let obj = json!({"src":src,"src_port":tcp.get_source(),"dest_port": tcp.get_destination(),"dest":dst,"sni":parser.sni});
+            println!("{}", serde_json::to_string_pretty(&obj).unwrap());
+            
+            } else {
+                println!("TCP {:?}:{} -> {:?}:{}",
+                    src, tcp.get_source(),
+                    dst, tcp.get_destination());
+                println!("SNI: {:#?}", parser.sni);
+
+            }
+            
         }
     }
 }
