@@ -2,6 +2,15 @@
 
 Extract domains visited through SNI sniffing.
 
+## Usage
+
+```bash
+apt-get install cargo
+make # Or: cargo build --release
+make install
+sudo sni-sniffer --sniff eno1
+```
+
 ## JSON Output
 ```
 {
@@ -11,7 +20,8 @@ Extract domains visited through SNI sniffing.
     "ir.ebaystatic.com"
   ],
   "src": "192.168.0.139",
-  "src_port": 49291
+  "src_port": 49291,
+  "ts": 1678300938.143
 }
 {
   "dest": "2.19.113.24",
@@ -20,7 +30,8 @@ Extract domains visited through SNI sniffing.
     "www.ebay.com"
   ],
   "src": "192.168.0.139",
-  "src_port": 35257
+  "src_port": 35257,
+  "ts": 1678300938.149
 }
 ```
 
